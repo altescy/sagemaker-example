@@ -60,11 +60,13 @@ poetry run python -m sagemaker_example train --local
 poetry run python -m sagemaker_example serve --local --port 8080
 ```
 
-3. Invoke the SageMaker endpoint on your local machine
+3. Train a model with local mode
 
 ```
-poetry run python scripts/deploy.py \
-    --endopint-name your-endpoint-name \
+poetry run python scripts/train.py \
+    --local \
+    --dataset-path file://`pwd`/data \
+    --artifact-path file://`pwd`/data \
     --image-uri xxxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/your-image-name \
-    --execution-role arn:aws:iam::xxxxxxxxxxxx:role/SageMakerExecutionRole
+    --execution-role dummy/dummy
 ```
