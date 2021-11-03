@@ -30,7 +30,7 @@ poetry run python scripts/deploy.py \
 4. Invoke the endpoint
 
 ```
-poetry run python scripts/predict.py -n sagemaker-example data/test.json
+poetry run python scripts/predict.py -n your-endpoint-name data/test.json
 ```
 
 5. Delete the endpoint
