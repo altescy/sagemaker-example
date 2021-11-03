@@ -45,7 +45,19 @@ aws sagemaker delete-endpoint --endpoint-name your-endpoint-name
 
 ## Local mode
 
-You can run the endpoint on your local machine via:
+1. Train model on your local machie
+
+```
+poetry run python -m sagemaker_example train --local
+```
+
+2. Serve the endpoint on your local machine
+
+```
+poetry run python -m sagemaker_example serve --local --port 8080
+```
+
+3. Invoke the SageMaker endpoint on your local machine
 
 ```
 poetry run python scripts/deploy.py \
