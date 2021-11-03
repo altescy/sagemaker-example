@@ -30,11 +30,7 @@ poetry run python scripts/deploy.py \
 4. Invoke the endpoint
 
 ```
-aws sagemaker-runtime invoke-endpoint \
-    --endopint-name your-endopint-name \
-    --body file://`pwd`/data/test.json \
-    --content-type application/json \
-    output.json
+poetry run python scripts/predict.py -n sagemaker-example data/test.json
 ```
 
 5. Delete the endpoint
