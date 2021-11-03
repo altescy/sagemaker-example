@@ -13,7 +13,7 @@ aws s3 cp ./data/iris.csv s3://your-bucket/path/to/dataset/iris.csv
 2. Build and push the docker image to ECR
 
 ```
-./scripts/build_and_push_ecr.sh
+./scripts/build_and_push_ecr.sh your-image-name
 ```
 
 3. Train a model and deploy the inference endpoint
