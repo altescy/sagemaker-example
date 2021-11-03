@@ -9,19 +9,13 @@ def main() -> None:
     parser.add_argument("-t", "--training-job", type=str, required=True)
     parser.add_argument("--instance-type", type=str, default="ml.m5.large")
     parser.add_argument("--instance-count", type=int, default=1)
-    parser.add_argument("--local", action="store_true")
     args = parser.parse_args()
 
     endpoint_name = args.endpoint_name
     training_job_name = args.training_job
 
-    if args.local:
-        instance_type = "local"
-        instance_type = "local"
-        instance_count = 1
-    else:
-        instance_type = args.instance_type
-        instance_count = args.instance_count
+    instance_type = args.instance_type
+    instance_count = args.instance_count
 
     estimator = Estimator.attach(training_job_name)
 
