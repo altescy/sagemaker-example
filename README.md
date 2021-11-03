@@ -16,7 +16,7 @@ aws s3 cp ./data/iris.csv s3://your-bucket/path/to/dataset/iris.csv
 ./scripts/build_and_push_ecr.sh
 ```
 
-3. Training a model and deploying the inference endpoint
+3. Train a model and deploy the inference endpoint
 
 ```
 poetry run python scripts/deploy.py \
@@ -41,4 +41,15 @@ aws sagemaker-runtime invoke-endpoint \
 
 ```
 aws sagemaker delete-endpoint --endpoint-name your-endpoint-name
+```
+
+## Local mode
+
+You can run the endpoint on your local machine via:
+
+```
+poetry run python scripts/deploy.py \
+    --endopint-name your-endpoint-name \
+    --image-uri xxxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/your-image-name \
+    --execution-role arn:aws:iam::xxxxxxxxxxxx:role/SageMakerExecutionRole
 ```
