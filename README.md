@@ -16,24 +16,31 @@ aws s3 cp ./data/iris.csv s3://your-bucket/path/to/dataset/iris.csv
 ./scripts/build_and_push_ecr.sh your-image-name
 ```
 
-3. Train a model and deploy the inference endpoint
+3. Train a model with SageMaker
 
 ```
-poetry run python scripts/deploy.py \
-    --endopint-name your-endpoint-name \
+poetry run python scripts/train.py \
     --dataset-path s3://your-bucket/path/to/dataset \
     --artifact-path s3://your-bucket/path/to/artifacts \
     --image-uri xxxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/your-image-name \
     --execution-role arn:aws:iam::xxxxxxxxxxxx:role/SageMakerExecutionRole
 ```
 
-4. Invoke the endpoint
+4. Deploy the trained model
+
+```
+poetry run python scripts/deploy.py \
+    --endpoint-name your-endpoint-name \
+    --training-job training-job-name
+```
+
+5. Invoke the endpoint
 
 ```
 poetry run python scripts/predict.py -n your-endpoint-name data/test.json
 ```
 
-5. Delete the endpoint
+6. Delete the endpoint
 
 ```
 aws sagemaker delete-endpoint --endpoint-name your-endpoint-name
