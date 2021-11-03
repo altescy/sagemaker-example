@@ -41,7 +41,7 @@ aws sagemaker delete-endpoint --endpoint-name your-endpoint-name
 
 ## Local mode
 
-1. Train model on your local machie
+1. Train a model on your local machie
 
 ```
 poetry run python -m sagemaker_example train --local
