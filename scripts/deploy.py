@@ -1,7 +1,6 @@
 import argparse
 import os
 
-import sagemaker
 from sagemaker.estimator import Estimator
 
 
@@ -32,7 +31,7 @@ def main() -> None:
         training_instance_type = args.training_instance
         inference_instance_type = args.inference_instance
 
-    est = Estimator(
+    estimator = Estimator(
         image_uri=image_uri,
         role=role,
         instance_count=1,
@@ -40,19 +39,13 @@ def main() -> None:
         output_path=output,
     )
 
-    est.fit({"training": training})
+    estimator.fit({"training": training})
 
-    pred = est.deploy(
+    estimator.deploy(
         endpoint_name=endpoint_name,
         instance_type=inference_instance_type,
         initial_instance_count=1,
     )
-
-    pred.serializer = sagemaker.serializers.JSONSerializer()
-    pred.deserializer = sagemaker.deserializers.JSONDeserializer()
-    test_samples = [{"sepal_width": 7.2, "sepal_length": 3.0, "petal_width": 5.8, "petal_length": 1.6}]
-    response = pred.predict(test_samples)
-    print(response)
 
 
 if __name__ == "__main__":
