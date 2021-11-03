@@ -4,7 +4,7 @@ from pathlib import Path
 
 import uvicorn
 
-from sagemaker_example import api, iris
+from sagemaker_example import api, model
 
 if os.environ.get("LOCAL_MODE"):
     dataset_path = Path("data/")
@@ -12,17 +12,6 @@ if os.environ.get("LOCAL_MODE"):
 else:
     dataset_path = Path("/opt/ml/input/data/training/")
     artifact_path = Path("/opt/ml/model/")
-
-
-def train() -> None:
-    global dataset_path, artifact_path
-    iris.train(dataset_path, artifact_path)
-
-
-def serve() -> None:
-    global dataset_path, artifact_path
-    app = api.create_app(dataset_path, artifact_path)
-    uvicorn.run(app, host="0.0.0.0", port=8080)
 
 
 def main() -> None:
@@ -41,7 +30,7 @@ def main() -> None:
         artifact_path = Path("/opt/ml/model/")
 
     if args.command == "train":
-        iris.train(dataset_path, artifact_path)
+        model.train(dataset_path, artifact_path)
     elif args.command == "serve":
         app = api.create_app(dataset_path, artifact_path)
         uvicorn.run(app, host=args.host, port=args.port)

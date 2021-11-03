@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from sklearn.ensemble import RandomForestClassifier
 
 
-class IrisFeature(BaseModel):
+class Instance(BaseModel):
     sepal_length: float
     sepal_width: float
     petal_length: float
@@ -41,11 +41,11 @@ def train(dataset_path: Path, artifact_path: Path) -> None:
         pickle.dump(model, pklfile)
 
 
-def load_model(artifact_path: Path) -> RandomForestClassifier:
+def load(artifact_path: Path) -> RandomForestClassifier:
     with open(artifact_path / "model.pkl", "rb") as pklfile:
         return pickle.load(pklfile)
 
 
-def predict(model: RandomForestClassifier, data: List[IrisFeature]) -> List[int]:
+def predict(model: RandomForestClassifier, data: List[Instance]) -> List[int]:
     X = numpy.array([[x.sepal_length, x.sepal_width, x.petal_length, x.petal_width] for x in data])
     return model.predict(X).tolist()  # type: ignore
