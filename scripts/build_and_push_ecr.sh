@@ -1,6 +1,7 @@
 #!/bin/bash
 
-algorithm_name=sagemaker-example
+algorithm_name=$1
+algorithm_name=${algorithm_name:-sagemaker-example}
 
 account=$(aws sts get-caller-identity --query Account --output text)
 
@@ -9,8 +10,6 @@ region=$(aws configure get region)
 region=${region:-ap-northeast-1}
 
 fullname="${account}.dkr.ecr.${region}.amazonaws.com/${algorithm_name}:latest"
-
-echo ${fullname}
 
 # If the repository doesn't exist in ECR, create it.
 aws ecr describe-repositories --repository-names "${algorithm_name}" 2>&1
