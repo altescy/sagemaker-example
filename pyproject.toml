@@ -8,8 +8,8 @@ authors = ["altescy <altescy@fastmail.com>"]
 python = "^3.8"
 boto3 = "^1.19.9"
 sagemaker = {version = "^2.68.0", extras = ["local"]}
-fastapi = "^0.70.0"
 scikit-learn = "^1.0.1"
+fastapi = "^0.70.0"
 uvicorn = "^0.15.0"
 
 [tool.poetry.dev-dependencies]
@@ -17,8 +17,6 @@ python-language-server = "^0.36.2"
 pysen = {version = "^0.9.1", extras = ["lint"]}
 pytest = "^6.2.4"
 boto3-stubs = {version = "^1.19.9", extras = ["s3", "sagemaker"]}
-ipython = "^7.29.0"
-jupyter = "^1.0.0"
 
 [tool.pysen]
 version = "0.9"
