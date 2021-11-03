@@ -1,17 +1,9 @@
 import argparse
-import os
 from pathlib import Path
 
 import uvicorn
 
 from sagemaker_example import api, model
-
-if os.environ.get("LOCAL_MODE"):
-    dataset_path = Path("data/")
-    artifact_path = Path("data/")
-else:
-    dataset_path = Path("/opt/ml/input/data/training/")
-    artifact_path = Path("/opt/ml/model/")
 
 
 def main() -> None:
