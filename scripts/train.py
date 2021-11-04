@@ -1,6 +1,11 @@
 import argparse
+import os
 
+import boto3
+import sagemaker
 from sagemaker.estimator import Estimator
+
+aws_profile = os.environ.get("AWS_PROFILE")
 
 
 def main() -> None:
@@ -26,12 +31,16 @@ def main() -> None:
         instance_type = args.instance_type
         instance_count = args.instance_count
 
+    boto_session = boto3.Session(profile_name=aws_profile)
+    sagemaker_session = sagemaker.Session(boto_session=boto_session)
+
     estimator = Estimator(
         image_uri=image_uri,
         role=role,
         instance_count=instance_count,
         instance_type=instance_type,
         output_path=output,
+        sagemaker_session=sagemaker_session,
     )
 
     estimator.fit({"training": training})

@@ -1,8 +1,12 @@
 import argparse
 import json
+import os
 
+import boto3
 import sagemaker
 from sagemaker.predictor import Predictor
+
+aws_profile = os.environ.get("AWS_PROFILE")
 
 
 def main() -> None:
@@ -11,7 +15,9 @@ def main() -> None:
     parser.add_argument("-n", "--endpoint-name", type=str, required=True)
     args = parser.parse_args()
 
-    session = sagemaker.Session()
+    boto_session = boto3.Session(profile_name=aws_profile)
+    session = sagemaker.Session(boto_session=boto_session)
+
     predictor = Predictor(
         endpoint_name=args.endpoint_name,
         sagemaker_session=session,

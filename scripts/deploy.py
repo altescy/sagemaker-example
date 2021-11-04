@@ -1,6 +1,11 @@
 import argparse
+import os
 
+import boto3
+import sagemaker
 from sagemaker.estimator import Estimator
+
+aws_profile = os.environ.get("AWS_PROFILE")
 
 
 def main() -> None:
@@ -17,7 +22,10 @@ def main() -> None:
     instance_type = args.instance_type
     instance_count = args.instance_count
 
-    estimator = Estimator.attach(training_job_name)
+    boto_session = boto3.Session(profile_name=aws_profile)
+    sagemaker_session = sagemaker.Session(boto_session=boto_session)
+
+    estimator = Estimator.attach(training_job_name, sagemaker_session=sagemaker_session)
 
     estimator.deploy(
         endpoint_name=endpoint_name,
